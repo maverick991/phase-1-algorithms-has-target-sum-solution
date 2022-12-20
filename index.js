@@ -1,5 +1,20 @@
 function hasTargetSum(array, target) {
   // Write your algorithm here
+  // create an object to keep track of all the numbers we've seen
+  const seenNumbers = {};
+  // iterate over the array of numbers
+  for (const number of array) {
+    // for the current number, identify a complementary number that adds to our target
+    // (for example: if our number is 2, and the target is 5, the complementary number is 3)
+    const complement = target - number;
+    // check if any of the keys in our object is the complement to the current number
+    // if so, return true
+    if (seenNumbers[complement]) return true;
+    // save the current number as the key on our object so we can check it later against other numbers
+    seenNumbers[number] = true;
+  }
+  // if we reach the end of the array, return false
+  return false;
 }
 
 /* 
@@ -8,6 +23,14 @@ function hasTargetSum(array, target) {
 
 /* 
   Add your pseudocode here
+  iterate over the array of numbers
+  for the current number, identify a complementary number that adds to our target
+  (for example: if our number is 2, and the target is 5, the complementary number is 3)
+  iterate over the remaining numbers in the array
+    check if any of the remaining numbers is the complement
+      if so, return true
+if we reach the end of the array, return false
+
 */
 
 /*
@@ -29,6 +52,22 @@ if (require.main === module) {
 
   console.log("Expecting: false");
   console.log("=>", hasTargetSum([1, 2, 5], 4));
+  console.log("");
+  // Negative numbers?
+  console.log("Expecting: true");
+  console.log("=>", hasTargetSum([-7, 10, 4, 8], 3));
+
+  console.log("");
+  // Multiple pairs?
+  console.log("Expecting: true");
+  console.log("=>", hasTargetSum([1, 2, 3, 4], 5));
+
+  console.log("");
+  // Single numbers?
+  console.log("Expecting: false");
+  console.log("=>", hasTargetSum([4], 4));
+
+
 }
 
 module.exports = hasTargetSum;
